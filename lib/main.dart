@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Personal Expenses',
       theme: ThemeData(
           primarySwatch: Colors.purple,
+          // errorColor: Colors.red,
           // accentColor: Colors.amber,
           fontFamily: "Quicksand",
           textTheme: ThemeData.light().textTheme.copyWith(
@@ -77,11 +78,11 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String title, double amount) {
+  void _addNewTransaction(String title, double amount, DateTime chosenDate) {
     final newTransaction = Transaction(
       title: title,
       amount: amount,
-      date: DateTime.now(),
+      date: chosenDate,
       id: DateTime.now().toString(),
     );
 
@@ -97,6 +98,12 @@ class _MyHomePageState extends State<MyHomePage> {
         return NewTransaction(_addNewTransaction);
       },
     );
+  }
+
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransaction.removeWhere((transaction) => transaction.id == id);
+    });
   }
 
   @override
@@ -116,18 +123,11 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              child: Chart(_recentTransactions),
-            ),
-            Column(
-              children: <Widget>[
-                TransactionList(_userTransaction),
-              ],
-            ),
+            Chart(_recentTransactions),
+            TransactionList(_userTransaction, _deleteTransaction),
           ],
         ),
       ),
