@@ -18,7 +18,9 @@ class TransactionList extends StatelessWidget {
                   "No Transactions added yet!",
                   style: Theme.of(context).textTheme.title,
                 ),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 Container(
                   height: 200,
                   child: Image.asset(
@@ -32,6 +34,37 @@ class TransactionList extends StatelessWidget {
               // ListView need a container with height or width - ListView.builder is more effecient
               itemBuilder: (context, index) {
                 return Card(
+                  margin: EdgeInsets.symmetric(horizontal: 5, vertical: 8),
+                  elevation: 5,
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      child: Padding(
+                        padding: EdgeInsets.all(6),
+                        child: FittedBox(
+                          child: Text('\$${transactions[index].amount}'),
+                        ),
+                      ),
+                    ),
+                    title: Text(
+                      transactions[index].title,
+                      style: Theme.of(context).textTheme.title,
+                    ),
+                    subtitle: Text(
+                      DateFormat.yMMMd().format(transactions[index].date),
+                    ),
+                  ),
+                );
+              },
+              itemCount: transactions.length,
+            ),
+    );
+  }
+}
+
+
+/*Custom List 
+return Card(
                   child: Row(
                     children: <Widget>[
                       Container(
@@ -73,9 +106,4 @@ class TransactionList extends StatelessWidget {
                     ],
                   ),
                 );
-              },
-              itemCount: transactions.length,
-            ),
-    );
-  }
-}
+ */

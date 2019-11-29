@@ -28,7 +28,6 @@ class _NewTransactionState extends State<NewTransaction> {
       enteredAmount,
     );
 
-
     Navigator.of(context).pop();
   }
 
@@ -58,9 +57,26 @@ class _NewTransactionState extends State<NewTransaction> {
               onSubmitted: (_) => submitData(),
               // onChanged: (value) => amountInput = value,
             ),
-            FlatButton(
+            Container(
+              height: 70,
+              child: Row(
+                children: <Widget>[
+                  Text('No Date Chosen!'),
+                  FlatButton(
+                    textColor: Theme.of(context).primaryColor,
+                    child: Text(
+                      "Choose Date",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    onPressed: () {},
+                  )
+                ],
+              ),
+            ),
+            RaisedButton(
               child: Text('Add Transaction'),
-              textColor: Colors.purple,
+              textColor: Theme.of(context).textTheme.button.color,
+              color: Theme.of(context).primaryColor,
               onPressed: submitData,
             ),
           ],

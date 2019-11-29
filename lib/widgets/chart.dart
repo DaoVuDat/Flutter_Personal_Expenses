@@ -28,12 +28,13 @@ class Chart extends StatelessWidget {
       print(totalSum);
 
       return {
-        'day': DateFormat.E().format(weekDay).substring(0, 1),
+        'day': DateFormat.E().format(weekDay).substring(0, 3),
         'amount': totalSum,
       };
-    });
+    }).reversed.toList();
   }
 
+  // total spending of a week - this fold method will loop 7 times
   double get totalSpending {
     return groupedTransactionValues.fold(0.0, (sum, item) {
       return sum + item['amount'];
@@ -58,8 +59,7 @@ class Chart extends StatelessWidget {
                 data['amount'],
                 totalSpending == 0.0
                     ? 0.0
-                    : (data['amount'] as double) / totalSpending,
-              ),
+                    : (data['amount'] as double) / totalSpending),
             );
           }).toList(),
         ),
